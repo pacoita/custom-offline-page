@@ -15,6 +15,6 @@ Much better than the offline dynosaur...
 
 ## Offline case
 
-In the custom offline page we can provide useful details: phone numbers, details about sales campaign...
+In the custom offline page we can provide useful details: company phone numbers or sales campaign details, for instance.
 
 ![custom_offline](https://dev-to-uploads.s3.amazonaws.com/i/hacwp9ryknanwz1zgzun.PNG)
