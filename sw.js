@@ -6,39 +6,56 @@ const OFFLINE_URL = 'offline_page.html';
 
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      // PRE-CACHING step
-      // We cache static files essential for our "app shell"
-      .then(cache => cache.addAll([
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      await cache.addAll([
         './styles.css',
         './images/offline_img.png',
         'favicon.ico',
         OFFLINE_URL
-      ]))
+      ]);
+    })()
   );
 });
 
-self.addEventListener('activate', (event) => {
-  // Here we might get rid of old caches
+self.addEventListener('activate', event => {
+  // Here we typically cleanup old caches if needed...
+  event.waitUntil(
+    (async () => {
+      const keyList = await caches.keys();
+      return Promise.all(keyList.map((key) => {
+        if (key !== CACHE_NAME) {
+          console.log('SW: Removing old cache', key);
+          return caches.delete(key);
+        }
+      }));
+    })()
+  );
 });
 
 this.addEventListener('fetch', event => {
-  // Navigate request is created while navigating between site pages
+  // Navigate request is created while navigating between pages
   if (event.request.mode === 'navigate') {
-    event.respondWith(
-      // Fetch fails -> return offline page
-      fetch(event.request.url)
-      .catch(_ => {
-        return caches.match(OFFLINE_URL);
-      })
+    event.respondWith((async () => {
+      try {
+        const networkResponse = await fetch(event.request);
+
+        // We are online
+        return networkResponse;
+      } catch (error) {
+        const cache = await caches.open(CACHE_NAME);
+        const cachedResponse = await cache.match(OFFLINE_URL);
+        return cachedResponse;
+      }
+    })()
     );
-  } else {
-    event.respondWith(
-      // cache first strategy, fallback to network
-      caches.match(event.request)
-        .then(function (response) {
-          return response || fetch(event.request);
-        })
+  }
+  else {
+    event.respondWith((async () => {
+      // Cache first strategy, fallback to network
+      const cachedAssets = await caches.match(event.request);
+      return cachedAssets || fetch(event.request);
+    })()
     );
   }
 });
