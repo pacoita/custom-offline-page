@@ -12,6 +12,9 @@ self.addEventListener("install", event => {
         './styles.css',
         './images/offline_img.png',
         'favicon.ico',
+        // Alternatively we can inline all resources needed by the offline page
+        // making it self-contained
+        'auto_reload.js',
         OFFLINE_URL
       ]);
     })()
