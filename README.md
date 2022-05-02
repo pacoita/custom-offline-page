@@ -6,15 +6,15 @@ With little efforts we can provide a better experience when the users access our
 
 Much better than the offline dynosaur...
 
-![deno_offline](https://dev-to-uploads.s3.amazonaws.com/i/qpt943yulhhff7m5snq8.PNG)
+<img src="https://dev-to-uploads.s3.amazonaws.com/i/qpt943yulhhff7m5snq8.PNG" width="650px">
 
 ## Online case
 
-![online](https://dev-to-uploads.s3.amazonaws.com/i/4z2f1kac71suiweqdokp.PNG)
+<img src="https://dev-to-uploads.s3.amazonaws.com/i/4z2f1kac71suiweqdokp.PNG" width="650px" alt="onlineImage">
 
 
 ## Offline case
 
 In the custom offline page we can provide useful details: company phone numbers or sales campaign details, for instance.
 
-![custom_offline](https://dev-to-uploads.s3.amazonaws.com/i/hacwp9ryknanwz1zgzun.PNG)
+<img src="https://dev-to-uploads.s3.amazonaws.com/i/hacwp9ryknanwz1zgzun.PNG" width="650px" alt="customOffline">
